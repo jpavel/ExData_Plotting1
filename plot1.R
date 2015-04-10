@@ -1,11 +1,21 @@
-plot1<- function(zipfile="exdata-data-household_power_consumption.zip", datafile="household_power_consumption.txt"){
-      ## UNZIPPING
+plot1<- function(fileUrl="https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip", 
+                 zipfile="exdata-data-household_power_consumption.zip", datafile="household_power_consumption.txt"){
+      ##DOWNLOADING TO TMP
       #make tempdir (if not existing)
       tmpdir<-tempdir()
       if(!file.exists(tmpdir)) dir.create(tmpdir,recursive=TRUE)
+      destZipFile<-paste0(tmpdir,"/",zipfile)
+      download.file(fileUrl, destfile=destZipFile, method = "curl")
+      
+      ## UNZIPPING
       #unzip to tempdir
-      unzip(zipfile,exdir=tmpdir)
+      unzip(destZipfile,exdir=tmpdir)
       inFileName<-paste0(tmpdir,"/",datafile) #full path to unzipped file
+      #check that input file exists and exit function if not
+      if(!file.exists(inFileName)){
+            err_msg<-paste("The file",inFileName,"does not exists. Please check the input URL and the datafile name")
+            stop(err_msg)
+      }
       
       ## LOADING AND CLEANING DATA
       # load the full file in correct format (separators are ";" and missing values are "?")

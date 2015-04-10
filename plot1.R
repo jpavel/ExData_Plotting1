@@ -3,8 +3,12 @@ plot1<- function(useLocal=TRUE, fileUrl="https://d396qusza40orc.cloudfront.net/e
       ## checking if local input exists and download it if not
       download<-FALSE #download only if requested, or input file missing
       if(useLocal){
+            message("Checking if local input file exists...")
             if(file.exists(datafile)) inFileName<-datafile
-            else download<-TRUE
+            else{
+                  download<-TRUE
+                  warning("Local file not found! Attempting to download")
+            } 
       }else download<-TRUE 
       
       if(download){
@@ -26,7 +30,8 @@ plot1<- function(useLocal=TRUE, fileUrl="https://d396qusza40orc.cloudfront.net/e
                   stop(err_msg)
             }
       }
-      
+      msg<-paste("The file",inFileName,"will be used as input")
+      message(msg)
       ## LOADING AND CLEANING DATA
       # load the full file in correct format (separators are ";" and missing values are "?")
       all<-read.table(inFileName,header=TRUE, sep=";", na.strings = "?")

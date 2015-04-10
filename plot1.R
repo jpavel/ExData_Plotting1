@@ -6,6 +6,10 @@
 ## It reads in the full text file and then subsets to data covering 1-2/2/2007
 ## Finally it creates plot and saves it
 
+## example:
+## > source("plot1.R")
+## > plot1()
+
 
 plot1<- function(useLocal=TRUE, fileUrl="https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip", 
                  zipfile="exdata-data-household_power_consumption.zip", datafile="household_power_consumption.txt"){

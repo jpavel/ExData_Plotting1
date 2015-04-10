@@ -18,7 +18,7 @@ plot1<- function(useLocal=TRUE, fileUrl="https://d396qusza40orc.cloudfront.net/e
             
             ## UNZIPPING
             #unzip to tempdir
-            unzip(destZipfile,exdir=tmpdir)
+            unzip(destZipFile,exdir=tmpdir)
             inFileName<-paste0(tmpdir,"/",datafile) #full path to unzipped file
             #check that input file exists and exit function if not
             if(!file.exists(inFileName)){

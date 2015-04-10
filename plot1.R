@@ -1,3 +1,12 @@
+## Function to make "plot1" as in the assignment
+## Default parameters are set such that user do not need to change them
+## Function will try to check if local txt file specified in "datafile" exists
+## If not, it will download it and unzip it
+
+## It reads in the full text file and then subsets to data covering 1-2/2/2007
+## Finally it creates plot and saves it
+
+
 plot1<- function(useLocal=TRUE, fileUrl="https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip", 
                  zipfile="exdata-data-household_power_consumption.zip", datafile="household_power_consumption.txt"){
       ## checking if local input exists and download it if not
@@ -7,7 +16,7 @@ plot1<- function(useLocal=TRUE, fileUrl="https://d396qusza40orc.cloudfront.net/e
             if(file.exists(datafile)) inFileName<-datafile
             else{
                   download<-TRUE
-                  warning("Local file not found! Attempting to download")
+                  warning("Local file not found! Downloading it!")
             } 
       }else download<-TRUE 
       

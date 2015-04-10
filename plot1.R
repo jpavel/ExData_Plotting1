@@ -1,20 +1,30 @@
-plot1<- function(fileUrl="https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip", 
+plot1<- function(useLocal=TRUE, fileUrl="https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip", 
                  zipfile="exdata-data-household_power_consumption.zip", datafile="household_power_consumption.txt"){
-      ##DOWNLOADING TO TMP
-      #make tempdir (if not existing)
-      tmpdir<-tempdir()
-      if(!file.exists(tmpdir)) dir.create(tmpdir,recursive=TRUE)
-      destZipFile<-paste0(tmpdir,"/",zipfile)
-      download.file(fileUrl, destfile=destZipFile, method = "curl")
+      ## checking if local input exists and download it if not
+      download<-FALSE #download only if requested, or input file missing
+      if(useLocal){
+            if(file.exists(datafile)) inFileName<-datafile
+            else download<-TRUE
+      }else download<-TRUE 
       
-      ## UNZIPPING
-      #unzip to tempdir
-      unzip(destZipfile,exdir=tmpdir)
-      inFileName<-paste0(tmpdir,"/",datafile) #full path to unzipped file
-      #check that input file exists and exit function if not
-      if(!file.exists(inFileName)){
-            err_msg<-paste("The file",inFileName,"does not exists. Please check the input URL and the datafile name")
-            stop(err_msg)
+      if(download){
+            ##DOWNLOADING TO TMP
+            #make tempdir (if not existing)
+            
+            tmpdir<-tempdir()
+            if(!file.exists(tmpdir)) dir.create(tmpdir,recursive=TRUE)
+            destZipFile<-paste0(tmpdir,"/",zipfile)
+            download.file(fileUrl, destfile=destZipFile, method = "curl")
+            
+            ## UNZIPPING
+            #unzip to tempdir
+            unzip(destZipfile,exdir=tmpdir)
+            inFileName<-paste0(tmpdir,"/",datafile) #full path to unzipped file
+            #check that input file exists and exit function if not
+            if(!file.exists(inFileName)){
+                  err_msg<-paste("The file",inFileName,"does not exists. Please check the input URL and the datafile name")
+                  stop(err_msg)
+            }
       }
       
       ## LOADING AND CLEANING DATA

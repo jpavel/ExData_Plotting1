@@ -7,6 +7,10 @@
 ## Then it merges time and date to one column and converts it to internal R time format
 ## Finally it plots Energy sub-metering for 3 sub-meters as a function of time and saves it to the file
 
+## Note that in this case the output file is opened before the plotting: copying
+## of plot created in "screen" graphic device to the png causes distortions of the legend 
+## (the fonts are not scaled down, so they are truncated)
+
 ## example:
 ## > source("plot3.R")
 ## > plot3()
@@ -58,14 +62,13 @@ plot3<- function(useLocal=TRUE, fileUrl="https://d396qusza40orc.cloudfront.net/e
       data[,2]<-as.POSIXct(strptime(data[,2], "%d/%m/%Y %T"))
       
       ## PLOTTING
+      png(file="plot3.png",width=480,height=480) #open the output file
       plot(data[,2],data[,7],type="l",xlab="",ylab="Energy sub metering")
       lines(data[,2],data[,8],col="red") # adding another line
       lines(data[,2],data[,9],col="blue") #yet another line
       #legend - if lwd is specified, it uses lines as indicators
       legend("topright",lwd=1,col=c("black","red","blue"),legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
       
-      # copy output to png file with size 480x480 pixels
-      dev.copy(png,width=480,height=480,file="plot3.png")
       #close the file
       dev.off()
 }

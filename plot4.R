@@ -65,14 +65,14 @@ plot4<- function(useLocal=TRUE, fileUrl="https://d396qusza40orc.cloudfront.net/e
       png(file="plot4.png",width=480,height=480) #open the output file
       par(mfrow=c(2,2)) # split the canvas to 2x2 parts
       plot(data[,2],data[,3],type="l",xlab="",ylab="Global Active Power")
-      plot(x,data[,5],type="l",xlab="datetime",ylab="Voltage")
+      plot(data[,2],data[,5],type="l",xlab="datetime",ylab="Voltage")
       plot(data[,2],data[,7],type="l",xlab="",ylab="Energy sub metering")
       lines(data[,2],data[,8],col="red") # adding another line
       lines(data[,2],data[,9],col="blue") #yet another line
       #legend - if lwd is specified, it uses lines as indicators
       #bty="n" turns off the border around legend
       legend("topright",lwd=1,col=c("black","red","blue"),legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), bty="n")
-      plot(x,data[,4],type="l",xlab="datetime",ylab="Global_reactive_power")
+      plot(data[,2],data[,4],type="l",xlab="datetime",ylab="Global_reactive_power")
       
       #close the file
       dev.off()

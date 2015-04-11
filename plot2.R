@@ -57,7 +57,7 @@ plot2<- function(useLocal=TRUE, fileUrl="https://d396qusza40orc.cloudfront.net/e
       data[,2]<-as.POSIXct(strptime(data[,2], "%d/%m/%Y %T"))
       
       ## PLOTTING
-      plot(data[,2],data[,3],type="l",xlab="",ylab="Global Active Power (kilowats)")
+      plot(data[,2],data[,3],type="l",xlab="",ylab="Global Active Power (kilowatts)")
       # copy output to png file with size 480x480 pixels
       dev.copy(png,width=480,height=480,file="plot2.png")
       #close the file

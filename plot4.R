@@ -1,4 +1,4 @@
-## Function to make "plot3" as in the assignment
+## Function to make "plot4" as in the assignment
 ## Default parameters are set such that user do not need to change them
 ## Function will try to check if local txt file specified in "datafile" exists
 ## If not, it will download it and unzip it
